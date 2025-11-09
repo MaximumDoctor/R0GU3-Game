@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=4 uid="uid://iim14r70nahh"]
+
+[ext_resource type="Texture2D" uid="uid://wbqhfickkueo" path="res://assets/Testing Tile.png" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://blvsejgq1xmn6" path="res://scenes/player.tscn" id="2_yqjtg"]
+[ext_resource type="FontFile" uid="uid://b3i8ua45xmnlo" path="res://assets/Fonts/VCR_OSD_MONO_1.001.ttf" id="3_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://bf65aei2bdvbt" path="res://scenes/killbox.tscn" id="3_lnu2h"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
+texture = ExtResource("1_uwrxv")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_lnu2h"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_yqjtg")
+
+[sub_resource type="LabelSettings" id="LabelSettings_yqjtg"]
+font_size = 26
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lbhrr"]
+
+[node name="Game Root" type="Node2D"]
+
+[node name="Tiles" type="Node" parent="."]
+
+[node name="Midground  - Testing" type="TileMapLayer" parent="Tiles"]
+tile_map_data = PackedByteArray("AAD8/wAAAAAAAAAAAAD9/wAAAAAAAAAAAAD+/wAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAP//AAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAFAP//AAAAAAAAAAAGAP//AAAAAAAAAAAHAP//AAAAAAAAAAAHAAAAAAAAAAAAAAD8//z/AAAAAAAAAAD9//z/AAAAAAAAAAD+//z/AAAAAAAAAAD7/wAAAAAAAAAAAAD6/wAAAAAAAAAAAAD5/wAAAAAAAAAAAAD5/wEAAAAAAAAAAAD4/wEAAAAAAAAAAAAIAP//AAAAAAAAAAAJAP//AAAAAAAAAAAKAP//AAAAAAAAAAALAP//AAAAAAAAAAAMAP//AAAAAAAAAAANAP//AAAAAAAAAAAOAP//AAAAAAAAAAAPAP//AAAAAAAAAAAQAP//AAAAAAAAAAARAP//AAAAAAAAAAASAP//AAAAAAAAAAATAP//AAAAAAAAAAAUAP//AAAAAAAAAAAUAP7/AAAAAAAAAAAUAP3/AAAAAAAAAAAUAPz/AAAAAAAAAAAUAPv/AAAAAAAAAAAUAPr/AAAAAAAAAAAUAPn/AAAAAAAAAAAUAPj/AAAAAAAAAAAUAPf/AAAAAAAAAAAUAPb/AAAAAAAAAAAUAPX/AAAAAAAAAAAUAPT/AAAAAAAAAAAUAPP/AAAAAAAAAAAUAPL/AAAAAAAAAAAPAPL/AAAAAAAAAAAPAPP/AAAAAAAAAAAPAPT/AAAAAAAAAAAPAPX/AAAAAAAAAAAPAPb/AAAAAAAAAAAPAPf/AAAAAAAAAAAPAPj/AAAAAAAAAAAPAPn/AAAAAAAAAAAUAPH/AAAAAAAAAAAUAPD/AAAAAAAAAAAUAO//AAAAAAAAAAAUAO7/AAAAAAAAAAANAPL/AAAAAAAAAAAMAPL/AAAAAAAAAAALAPL/AAAAAAAAAAAKAPL/AAAAAAAAAAAOAPL/AAAAAAAAAAAUAO3/AAAAAAAAAAATAO3/AAAAAAAAAAASAO3/AAAAAAAAAAARAO3/AAAAAAAAAAAQAO3/AAAAAAAAAAAPAO3/AAAAAAAAAAAOAO3/AAAAAAAAAAANAO3/AAAAAAAAAAAMAO3/AAAAAAAAAAALAO3/AAAAAAAAAAAKAO3/AAAAAAAAAAAAAPj/AAAAAAAAAAABAPj/AAAAAAAAAAACAPj/AAAAAAAAAAD8//P/AAAAAAAAAAD9//P/AAAAAAAAAAD+//P/AAAAAAAAAAAEAPX/AAAAAAAAAAAFAPX/AAAAAAAAAAAGAPX/AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_lnu2h")
+
+[node name="Player" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(0, -10)
+
+[node name="Camera2D2" type="Camera2D" parent="Player"]
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+
+[node name="Statics" type="CanvasLayer" parent="."]
+
+[node name="Stopwatch" type="Label" parent="Statics"]
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 85.0
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("3_lbhrr")
+text = "STOPWATCH HERE"
+label_settings = SubResource("LabelSettings_yqjtg")
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelTriggers" type="Node" parent="."]
+
+[node name="Killbox" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(-1, 55)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killbox"]
+shape = SubResource("WorldBoundaryShape2D_lbhrr")
